@@ -1,0 +1,24 @@
+/*
+ * box sizing
+ */
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+/*
+ * font
+ */
+html {
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", "Noto Sans Japanese", "ヒラギノ角ゴ ProN W3", Meiryo, sans-serif;
+    font-size: 62.5%;
+}
+
+body {
+    font-size: 1rem;
+}
