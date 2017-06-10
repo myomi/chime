@@ -1,6 +1,7 @@
 {
-  "name": "chime",
+  "name": "chime.scss",
   "version": "0.1.0",
+  "description": "sass utilities",
   "main": "index.scss",
   "license": "MIT",
   "scripts": {
