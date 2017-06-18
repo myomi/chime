@@ -14,34 +14,38 @@ const writeFile = util.promisify(fs.writeFile);
 /*
  * main
  */
-findScss("example")
-.then((files) => {
-    files.push("chime.scss");
-    files.forEach(async (f) => {
-        const outFile = f.replace(/\.scss$/, ".css");
-        try {
-            // clean
-            await rimrafP(outFile);
-            // sass
-            const result = await render({
-                file: f,
-                outputStyle: "expanded",
-                outFile: outFile,
-                indentWidth: 4,
-                sourceMapEmbed: true,
-                importer: packageImporter()
-            });
-            // write
-            await writeFile(outFile, result.css);
-            console.log("build: " + outFile);
-        } catch (e) {
-            console.error(e.formatted);
-        }
+main();
+
+async function main() {
+    findScss("example")
+    .then((files) => {
+        files.push("chime.scss");
+        files.forEach(async (f) => {
+            const outFile = f.replace(/\.scss$/, ".css");
+            try {
+                // clean
+                await rimrafP(outFile);
+                // sass
+                const result = await render({
+                    file: f,
+                    outputStyle: "expanded",
+                    outFile: outFile,
+                    indentWidth: 4,
+                    sourceMapEmbed: true,
+                    importer: packageImporter()
+                });
+                // write
+                await writeFile(outFile, result.css);
+                console.log("build: " + outFile);
+            } catch (e) {
+                console.error(e.formatted);
+            }
+        });
+    })
+    .catch(err => {
+        console.error(err.formatted);
     });
-})
-.catch(err => {
-    console.error(err.formatted);
-});
+}
 
 /*
  * find .scss files from basedir
@@ -76,3 +80,5 @@ function flatten(array) {
         return Array.isArray(c) ? p.concat(flatten(c)) : p.concat(c);
     }, []);
 }
+
+module.exports = main;
