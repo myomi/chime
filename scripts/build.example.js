@@ -67,7 +67,7 @@ async function findScss(basedir) {
  * @return array flattened
  */
 function flatten(array) {
-    return array.reduce(function (p, c) {
+    return array.reduce((p, c) => {
         return Array.isArray(c) ? p.concat(flatten(c)) : p.concat(c);
     }, []);
 }
