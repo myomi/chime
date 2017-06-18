@@ -1,0 +1,6 @@
+@mixin grid-container($rowGap: 0, $columnGap: 0, $rowAlign: normal, $columnAlign: normal) {
+    display: grid;
+    grid-gap: $rowGap $columnGap;
+    justify-items: $rowAlign;
+    align-items: $columnAlign;
+}

@@ -1,0 +1,53 @@
+@import '~normalize.css/normalize.css';
+@import '../../scss/variables';
+@import '../../scss/base/_base';
+@import '../../scss/grid/_grid';
+
+$site-header-height: 40px;
+$site-footer-height: 70px;
+
+/*
+ * Layout
+ */
+.Application {
+    @include grid-container();
+    grid-template-rows: $site-header-height 1fr $site-footer-height;
+    min-height: 100vh;
+}
+
+.SiteHeader {
+    background-color: #ccc;
+}
+
+.SideNavigation {
+    background-color: #aaa;
+    display: none;
+}
+
+.Content {
+    background-color: #555;
+}
+
+.SiteFooter {
+    background-color: #888;
+}
+
+@media (min-width: $tablet) {
+    .SiteHeader {
+        grid-column: 1 / span 12;
+    }
+
+    .SideNavigation {
+        grid-column: 1;
+        display: initial;
+    }
+
+    .Content {
+        grid-column: 2 / span 11;
+    }
+
+    .SiteFooter {
+        grid-column: 1 / span 12;
+    }
+}
+

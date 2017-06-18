@@ -1,0 +1,35 @@
+@import '~normalize.css/normalize.css';
+@import '../../scss/variables';
+@import '../../scss/base/_base';
+@import '../../scss/grid/_grid';
+
+/*
+ * Layout
+ */
+.Application {
+    width: 100vw;
+    height: 100vh;
+    background: url('./pexels-photo-198781-large.jpeg') no-repeat center center fixed;
+    background-size: cover;
+
+    @include grid-container($columnGap: 50px, $columnAlign: end);
+    grid-layout-column: 1fr 1fr;
+}
+
+.SiteTitle {
+    grid-column: 1 / span 1;
+
+    &__header {
+        color: #FFF;
+        font-size: 3.6rem;
+    }
+
+    &__subHeader {
+        color: #FFF;
+        font-size: 2.4rem;
+    }
+}
+
+.Content {
+    grid-column: 2 / span 1;
+}

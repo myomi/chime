@@ -8,7 +8,9 @@
     "clean": "rimraf build",
     "build": "yarn run clean && yarn run build:sass",
     "start": "yarn run build:sass -- --watch",
-    "build:sass": "node-sass --output build --importer node_modules/node-sass-package-importer/dist/cli.js --output-style expanded --source-map true chime.scss"
+    "start:example": "yarn run build:example -- --watch",
+    "build:sass": "node-sass --output build --importer node_modules/node-sass-package-importer/dist/cli.js --output-style expanded --source-map true chime.scss",
+    "build:example": "node-sass --output example/fullscreen --importer node_modules/node-sass-package-importer/dist/cli.js --output-style expanded --source-map-embed true ./example/fullscreen/*.scss"
   },
   "devDependencies": {
     "node-sass": "^4.5.3",
