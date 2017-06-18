@@ -18,24 +18,27 @@ findScss("example")
 .then((files) => {
     files.forEach(async (f) => {
         const outFile = f.replace(/\.scss$/, ".css");
-        // clean
-        await rimrafP(outFile);
-        // sass
-        const result = await render({
-            file: f,
-            outputStyle: "expanded",
-            outFile: outFile,
-            indentWidth: 4,
-            sourceMapEmbed: true,
-            importer: packageImporter()
-        });
-        // write
-        await writeFile(outFile, result.css);
+        try {
+            // clean
+            await rimrafP(outFile);
+            // sass
+            const result = await render({
+                file: f,
+                outputStyle: "expanded",
+                outFile: outFile,
+                indentWidth: 4,
+                sourceMapEmbed: true,
+                importer: packageImporter()
+            });
+            // write
+            await writeFile(outFile, result.css);
+        } catch (e) {
+            console.error(e.formatted);
+        }
     });
 })
-.catch((err) => {
-    console.error(err);
-    process.exit(-1);
+.catch(err => {
+    console.error(err.formatted);
 });
 
 /*
