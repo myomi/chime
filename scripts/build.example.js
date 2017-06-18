@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const rimraf = require("rimraf");
 const sass = require("node-sass");
 const packageImporter = require('node-sass-package-importer');
 
@@ -15,16 +16,22 @@ function renderSass(basedir) {
             if (stat.isFile() && filePath.match(/\.scss$/)) {
                 const outFile = filePath.replace(/\.scss$/, ".css");
 
-                sass.render({
-                    file: filePath,
-                    outputStyle: "expanded",
-                    outFile: outFile,
-                    indentWidth: 4,
-                    sourceMapEmbed: true,
-                    importer: packageImporter()
-                }, (err, result) => {
+                // clean
+                rimraf(outFile, (err) => {
                     if (err) throw err;
-                    fs.writeFile(outFile, result.css);
+
+                    // sass
+                    sass.render({
+                        file: filePath,
+                        outputStyle: "expanded",
+                        outFile: outFile,
+                        indentWidth: 4,
+                        sourceMapEmbed: true,
+                        importer: packageImporter()
+                    }, (err, result) => {
+                        if (err) throw err;
+                        fs.writeFile(outFile, result.css);
+                    });
                 });
             }
         });
