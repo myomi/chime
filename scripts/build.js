@@ -16,6 +16,7 @@ const writeFile = util.promisify(fs.writeFile);
  */
 findScss("example")
 .then((files) => {
+    files.push("chime.scss");
     files.forEach(async (f) => {
         const outFile = f.replace(/\.scss$/, ".css");
         try {
@@ -32,6 +33,7 @@ findScss("example")
             });
             // write
             await writeFile(outFile, result.css);
+            console.log("build: " + outFile);
         } catch (e) {
             console.error(e.formatted);
         }

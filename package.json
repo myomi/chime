@@ -5,12 +5,7 @@
   "main": "index.scss",
   "license": "MIT",
   "scripts": {
-    "clean": "rimraf build",
-    "build": "yarn run clean && yarn run build:sass",
-    "start": "yarn run build:sass -- --watch",
-    "start:example": "yarn run build:example -- --watch",
-    "build:sass": "node-sass --output build --importer node_modules/node-sass-package-importer/dist/cli.js --output-style expanded --indent-width 4 --source-map true chime.scss",
-    "build:example": "node scripts/build.example.js"
+    "build": "node scripts/build.js"
   },
   "devDependencies": {
     "node-sass": "^4.5.3",
