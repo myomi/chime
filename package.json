@@ -6,12 +6,16 @@
   "license": "MIT",
   "scripts": {
     "build": "node scripts/build.js",
+    "build:scss": "node scripts/build.js",
+    "build:autoprefixer": "postcss chime.css --use autoprefixer --output chime.css",
     "start": "nodemon --ext scss scripts/server.js"
   },
   "devDependencies": {
+    "autoprefixer": "^7.1.1",
     "node-sass": "^4.5.3",
     "node-sass-package-importer": "^3.0.4",
     "nodemon": "^1.11.0",
+    "postcss-cli": "^4.1.0",
     "rimraf": "^2.6.1",
     "serve": "^5.2.2"
   },

@@ -4,6 +4,8 @@ const rimraf = require("rimraf");
 const sass = require("node-sass");
 const packageImporter = require('node-sass-package-importer');
 const util = require("util");
+const autoprefixer = require('autoprefixer');
+const postcss      = require('postcss');
 
 const readdir = util.promisify(fs.readdir);
 const render = util.promisify(sass.render);
@@ -35,7 +37,8 @@ async function main() {
                     importer: packageImporter()
                 });
                 // write
-                await writeFile(outFile, result.css);
+                const prefixed = await autoprefix(result.css);
+                await writeFile(outFile, prefixed);
                 console.log("build: " + outFile);
             } catch (e) {
                 console.error(e.formatted);
@@ -45,6 +48,14 @@ async function main() {
     .catch(err => {
         console.error(err.formatted);
     });
+}
+
+async function autoprefix(css) {
+    const result = await postcss([ autoprefixer ]).process(css);
+    result.warnings().forEach(function (warn) {
+        console.warn(warn.toString());
+    });
+    return result.css;
 }
 
 /*
