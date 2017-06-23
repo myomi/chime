@@ -13,11 +13,12 @@ const stat = util.promisify(fs.stat);
 const rimrafP = util.promisify(rimraf);
 const writeFile = util.promisify(fs.writeFile);
 
-/*
- * main
- */
+
 main();
 
+/**
+ * main process
+ */
 async function main() {
     findScss("example")
     .then((files) => {
@@ -36,8 +37,9 @@ async function main() {
                     sourceMapEmbed: true,
                     importer: packageImporter()
                 });
-                // write
+                // autoprefix
                 const prefixed = await autoprefix(result.css);
+                // write
                 await writeFile(outFile, prefixed);
                 console.log("build: " + outFile);
             } catch (e) {
@@ -50,6 +52,12 @@ async function main() {
     });
 }
 
+/**
+ * execute autoprefixer
+ * 
+ * @param {string} css source
+ * @returns {string} css autoprefixed
+ */
 async function autoprefix(css) {
     const result = await postcss([ autoprefixer ]).process(css);
     result.warnings().forEach(function (warn) {
@@ -58,9 +66,11 @@ async function autoprefix(css) {
     return result.css;
 }
 
-/*
+/**
  * find .scss files from basedir
- * @param basedir path of the target directory.
+ * 
+ * @param {any} basedir path of the target directory.
+ * @returns {Array} array of sccs file path
  */
 async function findScss(basedir) {
     const files = await readdir(basedir);
@@ -81,10 +91,11 @@ async function findScss(basedir) {
     });
 }
 
-/*
+/**
  * flatten nested array
- * @param array src
- * @return array flattened
+ * 
+ * @param {Array} array src
+ * @returns {Array} dest
  */
 function flatten(array) {
     return array.reduce((p, c) => {
