@@ -17,7 +17,7 @@
     "nodemon": "^1.11.0",
     "postcss-cli": "^4.1.0",
     "rimraf": "^2.6.1",
-    "serve": "^5.2.2"
+    "serve": "^6.0.0"
   },
   "dependencies": {
     "normalize.css": "^7.0.0"
